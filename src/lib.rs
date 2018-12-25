@@ -33,6 +33,15 @@ impl Tuple {
         }
     }
 
+    fn color(red: f64, green: f64, blue: f64) -> Tuple {
+        Tuple {
+            x: red,
+            y: green,
+            z: blue,
+            w: 0.0,
+        }
+    }
+
     fn new(x: f64, y: f64, z: f64, w: f64) -> Tuple {
         Tuple {
             x: x,
@@ -67,7 +76,20 @@ impl Tuple {
             self.x * other.y - self.y * other.x,
         )
     }
+
+    fn red(&self) -> f64 {
+        self.x
+    }
+
+    fn green(&self) -> f64 {
+        self.y
+    }
+
+    fn blue(&self) -> f64 {
+        self.z
+    }
 }
+
 impl PartialEq for Tuple {
     fn eq(&self, other: &Self) -> bool {
         equals(self.x, other.x)
@@ -76,6 +98,7 @@ impl PartialEq for Tuple {
             && equals(self.w, other.w)
     }
 }
+
 impl ops::Add for Tuple {
     type Output = Self;
     fn add(self, other: Tuple) -> Self {
@@ -99,6 +122,7 @@ impl ops::Sub for Tuple {
         )
     }
 }
+
 impl ops::Neg for Tuple {
     type Output = Self;
     fn neg(self) -> Self {
@@ -114,6 +138,18 @@ impl ops::Mul<f64> for Tuple {
             self.y * other,
             self.z * other,
             self.w * other,
+        )
+    }
+}
+
+impl ops::Mul for Tuple {
+    type Output = Self;
+    fn mul(self, other: Self) -> Self {
+        Tuple::new(
+            self.x * other.x,
+            self.y * other.y,
+            self.z * other.z,
+            self.w * other.w,
         )
     }
 }
@@ -282,5 +318,40 @@ mod tests {
         let v2 = Tuple::vector(2.0, 3.0, 4.0);
         assert_eq!(v1.cross(&v2), Tuple::vector(-1.0, 2.0, -1.0));
         assert_eq!(v2.cross(&v1), Tuple::vector(1.0, -2.0, 1.0));
+    }
+
+    #[test]
+    fn colors_are_rgb_tuples() {
+        let c = Tuple::color(-0.5, 0.4, 1.7);
+        assert_eq!(c.red(), -0.5);
+        assert_eq!(c.green(), 0.4 as f64);
+        assert_eq!(c.blue(), 1.7 as f64);
+    }
+
+    #[test]
+    fn adding_colors() {
+        let c1 = Tuple::color(0.9, 0.6, 0.75);
+        let c2 = Tuple::color(0.7, 0.1, 0.25);
+        assert_eq!(c1 + c2, Tuple::color(1.6, 0.7, 1.0));
+    }
+
+    #[test]
+    fn subtracting_colors() {
+        let c1 = Tuple::color(0.9, 0.6, 0.75);
+        let c2 = Tuple::color(0.7, 0.1, 0.25);
+        assert_eq!(c1 - c2, Tuple::color(0.2, 0.5, 0.5));
+    }
+
+    #[test]
+    fn multiple_color_by_scalar() {
+        let c = Tuple::color(0.2, 0.3, 0.4);
+        assert_eq!(c * 2.0, Tuple::color(0.4, 0.6, 0.8));
+    }
+
+    #[test]
+    fn multiply_colors() {
+        let c1 = Tuple::color(1.0, 0.2, 0.4);
+        let c2 = Tuple::color(0.9, 1.0, 0.1);
+        assert_eq!(c1 * c2, Tuple::color(0.9, 0.2, 0.04));
     }
 }
