@@ -32,6 +32,7 @@ impl Tuple {
             w: 0.0,
         }
     }
+
     fn new(x: f64, y: f64, z: f64, w: f64) -> Tuple {
         Tuple {
             x: x,
@@ -40,6 +41,7 @@ impl Tuple {
             w: w,
         }
     }
+
     fn magnitude(&self) -> f64 {
         (self.x * self.x + self.y * self.y + self.z * self.z + self.w * self.w).sqrt()
     }
@@ -53,9 +55,11 @@ impl Tuple {
             self.w / magnitude,
         )
     }
+
     fn dot(&self, other: &Self) -> f64 {
         self.x * other.x + self.y * other.y + self.z * other.z + self.w * other.w
     }
+
     fn cross(&self, other: &Self) -> Tuple {
         Tuple::vector(
             self.y * other.z - self.z * other.y,
@@ -125,6 +129,7 @@ impl ops::Div<f64> for Tuple {
         )
     }
 }
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -142,6 +147,7 @@ mod tests {
             }
         );
     }
+
     #[test]
     fn create_vector() {
         let v = Tuple::vector(4.0, -3.0, 4.0);
@@ -155,12 +161,14 @@ mod tests {
             }
         );
     }
+
     #[test]
     fn add_tuples() {
         let a1 = Tuple::new(3.0, -2.0, 5.0, 1.0);
         let a2 = Tuple::new(-2.0, 3.0, 1.0, 0.0);
         assert_eq!(a1 + a2, Tuple::new(1.0, 1.0, 6.0, 1.0));
     }
+
     #[test]
     fn subtract_two_points() {
         let p1 = Tuple::point(3.0, 2.0, 1.0);
@@ -181,6 +189,7 @@ mod tests {
         let v2 = Tuple::vector(5.0, 6.0, 7.0);
         assert_eq!(v1 - v2, Tuple::vector(-2.0, -4.0, -6.0));
     }
+
     #[test]
     fn subtract_from_zero_vector() {
         let zero = Tuple::vector(0.0, 0.0, 0.0);
@@ -193,6 +202,7 @@ mod tests {
         let v = Tuple::vector(1.0, -2.0, 3.0);
         assert_eq!(-v, Tuple::vector(-1.0, 2.0, -3.0));
     }
+
     #[test]
     fn multiply_tuple_by_scalar() {
         let a = Tuple::new(1.0, -2.0, 3.0, -4.0);
@@ -216,47 +226,56 @@ mod tests {
         let v = Tuple::vector(1.0, 0.0, 0.0);
         assert_eq!(v.magnitude(), 1.0);
     }
+
     #[test]
     fn magnitude_of_vector_0_1_0() {
         let v = Tuple::vector(0.0, 1.0, 0.0);
         assert_eq!(v.magnitude(), 1.0);
     }
+
     #[test]
     fn magnitude_of_vector_0_0_1() {
         let v = Tuple::vector(0.0, 0.0, 1.0);
         assert_eq!(v.magnitude(), 1.0);
     }
+
     #[test]
     fn magnitude_of_vector_1_2_3() {
         let v = Tuple::vector(1.0, 2.0, 3.0);
         assert_eq!(v.magnitude(), (14.0 as f64).sqrt());
     }
+
     #[test]
     fn magnitude_of_vector_neg_1_2_3() {
         let v = Tuple::vector(-1.0, -2.0, -3.0);
         assert_eq!(v.magnitude(), (14.0 as f64).sqrt());
     }
+
     #[test]
     fn normalize_vector_4_0_0() {
         let v = Tuple::vector(4.0, 0.0, 0.0);
         assert_eq!(v.normalize(), Tuple::vector(1.0, 0.0, 0.0));
     }
+
     #[test]
     fn normalize_vector_1_2_3() {
         let v = Tuple::vector(1.0, 2.0, 3.0);
         assert_eq!(v.normalize(), Tuple::vector(0.267261, 0.534522, 0.801783));
     }
+
     #[test]
     fn magnitude_of_normalized_vector() {
         let v = Tuple::vector(1.0, 2.0, 3.0);
         assert_eq!(v.normalize().magnitude(), 1 as f64)
     }
+
     #[test]
     fn dot_product_of_two_vectors() {
         let v1 = Tuple::vector(1.0, 2.0, 3.0);
         let v2 = Tuple::vector(2.0, 3.0, 4.0);
         assert_eq!(v1.dot(&v2), 20 as f64);
     }
+
     #[test]
     fn cross_product_of_two_vectors() {
         let v1 = Tuple::vector(1.0, 2.0, 3.0);
