@@ -10,9 +10,9 @@ impl Canvas {
     fn new(width: usize, height: usize) -> Canvas {
         let pixels = vec![vec![base::Tuple::color(0.0, 0.0, 0.0); width]; height];
         Canvas {
-            width: width,
-            height: height,
-            pixels: pixels,
+            width,
+            height,
+            pixels,
         }
     }
 

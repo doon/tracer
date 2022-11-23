@@ -2,6 +2,6 @@
 name = "tracer"
 version = "0.1.0"
 authors = ["Patrick Muldoon <doon@labratsoftware.com>"]
-edition = "2018"
+edition = "2021"
 
 [dependencies]

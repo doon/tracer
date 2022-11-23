@@ -16,21 +16,11 @@ pub struct Tuple {
 
 impl Tuple {
     pub fn point(x: f64, y: f64, z: f64) -> Tuple {
-        Tuple {
-            x: x,
-            y: y,
-            z: z,
-            w: 1.0,
-        }
+        Tuple { x, y, z, w: 1.0 }
     }
 
     pub fn vector(x: f64, y: f64, z: f64) -> Tuple {
-        Tuple {
-            x: x,
-            y: y,
-            z: z,
-            w: 0.0,
-        }
+        Tuple { x, y, z, w: 0.0 }
     }
 
     pub fn color(red: f64, green: f64, blue: f64) -> Tuple {
@@ -43,12 +33,7 @@ impl Tuple {
     }
 
     pub fn new(x: f64, y: f64, z: f64, w: f64) -> Tuple {
-        Tuple {
-            x: x,
-            y: y,
-            z: z,
-            w: w,
-        }
+        Tuple { x, y, z, w }
     }
 
     pub fn magnitude(&self) -> f64 {
@@ -278,13 +263,13 @@ mod tests {
     #[test]
     fn magnitude_of_vector_1_2_3() {
         let v = Tuple::vector(1.0, 2.0, 3.0);
-        assert_eq!(v.magnitude(), (14.0 as f64).sqrt());
+        assert_eq!(v.magnitude(), (14.0_f64).sqrt());
     }
 
     #[test]
     fn magnitude_of_vector_neg_1_2_3() {
         let v = Tuple::vector(-1.0, -2.0, -3.0);
-        assert_eq!(v.magnitude(), (14.0 as f64).sqrt());
+        assert_eq!(v.magnitude(), (14.0_f64).sqrt());
     }
 
     #[test]
@@ -302,14 +287,14 @@ mod tests {
     #[test]
     fn magnitude_of_normalized_vector() {
         let v = Tuple::vector(1.0, 2.0, 3.0);
-        assert_eq!(v.normalize().magnitude(), 1 as f64)
+        assert_eq!(v.normalize().magnitude(), 1.0)
     }
 
     #[test]
     fn dot_product_of_two_vectors() {
         let v1 = Tuple::vector(1.0, 2.0, 3.0);
         let v2 = Tuple::vector(2.0, 3.0, 4.0);
-        assert_eq!(v1.dot(&v2), 20 as f64);
+        assert_eq!(v1.dot(&v2), 20.0);
     }
 
     #[test]
@@ -324,8 +309,8 @@ mod tests {
     fn colors_are_rgb_tuples() {
         let c = Tuple::color(-0.5, 0.4, 1.7);
         assert_eq!(c.red(), -0.5);
-        assert_eq!(c.green(), 0.4 as f64);
-        assert_eq!(c.blue(), 1.7 as f64);
+        assert_eq!(c.green(), 0.4);
+        assert_eq!(c.blue(), 1.7);
     }
 
     #[test]
